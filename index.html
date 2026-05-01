@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>КМВ Маркет — доставка товаров по Кавказским Минеральным Водам</title>
+  <style>
+    :root {
+      --bg: #f7f8f5;
+      --panel: rgba(255,255,255,0.95);
+      --panel-2: #fdfdfb;
+      --text: #0f1720;
+      --muted: #6b7280;
+      --accent: #2f9e44;
+      --accent-2: #1f7a34;
+      --danger: #c92a2a;
+      --border: rgba(15,23,32,0.08);
+      --shadow: 0 18px 45px rgba(15,23,32,0.12);
+      --radius: 22px;
+      --hero: linear-gradient(135deg, #0b1320, #111827);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(28,126,214,0.09), transparent 22%),
+        radial-gradient(circle at top right, rgba(47,158,68,0.08), transparent 22%),
+        var(--bg);
+      min-height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    body { padding: 24px; }
+    .container { max-width: 1420px; margin: 0 auto; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 20px;
+      margin-bottom: 18px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 14px;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 20px;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #40c057);
+      box-shadow: 0 12px 24px rgba(28,126,214,0.22);
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav a:hover { background: rgba(47,158,68,0.08); color: var(--accent); font-weight: 700; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr 0.95fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .hero-card, .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-card {
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main {
+      background: var(--hero);
+      color: white;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -60px;
+      bottom: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 68%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .title {
+      margin: 0 0 10px;
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: 1.03;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 0 0 24px;
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 760px;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button, .input, .select, textarea {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      font-size: 15px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .input, .select, textarea {
+      background: rgba(255,255,255,0.96);
+      color: var(--text);
+    }
+
+    .input::placeholder, textarea::placeholder { color: #8b98ad; }
+
+    .button {
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
+    }
+
+    .button:hover { transform: translateY(-1px); }
+    .button.primary {
+      background: linear-gradient(135deg, #1f7a34, #2f9e44);
+      color: white;
+      border-color: transparent;
+    }
+    .button.secondary {
+      background: rgba(217,72,119,0.08);
+      color: var(--accent);
+      border-color: rgba(217,72,119,0.16);
+    }
+    .button.success {
+      background: linear-gradient(135deg, #111827, #374151);
+      color: white;
+      border-color: transparent;
+    }
+    .button.ghost { background: transparent; color: var(--muted); }
+    .button.danger {
+      background: rgba(224,49,49,0.08);
+      color: var(--danger);
+      border-color: rgba(224,49,49,0.14);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      align-content: start;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(247,250,255,0.96));
+      border: 1px solid var(--border);
+    }
+
+    .stat .value {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+
+    .stat .label {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .panel { padding: 22px; }
+
+    .benefits-section {
+      background: #2f9e44;
+      color: white;
+      border-color: rgba(0,0,0,0.05);
+    }
+
+    .benefits-section .section-title,
+    .benefits-section p,
+    .benefits-section strong {
+      color: white;
+    }
+
+    .benefits-section .service-card {
+      background: rgba(255,255,255,0.95);
+      color: #162033;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.68fr) minmax(340px, 0.82fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .catalog-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    .muted { color: var(--muted); }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 12px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .service-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(17,24,39,0.04);
+    }
+
+    .service-card strong {
+      display: block;
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 18px;
+    }
+
+    .product {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 38px rgba(18, 37, 71, 0.13);
+      border-color: rgba(217,72,119,0.22);
+    }
+
+    .product-image {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: #edf3fb;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      padding: 12px;
+      background: #ffffff;
+      transition: transform 0.4s ease;
+    }
+
+    .product:hover .product-image img {
+      transform: scale(1.04);
+    }
+
+    .badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 9px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      color: var(--accent);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .product-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .section-title, .product-title, .cart-name { color: #111827; }
+    .topbar, .panel, .hero-card, .product, .contact-card, .service-card, .area-list, .cart-item { background-color: #ffffff; }
+    .hero-main { color: white; }
+    .hero-main .title, .hero-main .subtitle { color: white; }
+    .topbar, .panel, .product, .contact-card, .service-card, .area-list, .cart-item, .checkout-card { box-shadow: 0 14px 36px rgba(17,24,39,0.08); }
+    .badge, .area-pill { letter-spacing: 0.01em; }
+    .summary-row.total { border-top: 1px solid rgba(17,24,39,0.08); padding-top: 10px; margin-top: 6px; }
+    .product-title { margin: 0 0 8px; font-size: 19px; }
+    .product-desc {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 68px;
+    }
+
+    .product-meta {
+      margin-top: auto;
+    }
+
+    .delivery-from {
+      display: flex;
+      align-items: center;
+      margin: 10px 0 0;
+      padding: 7px 10px;
+      border-radius: 12px;
+      background: rgba(47,158,68,0.10);
+      border: 1px solid rgba(47,158,68,0.18);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.4;
+      min-height: 52px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .price {
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 92px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 340px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 62px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(244,248,253,0.9);
+    }
+
+    .cart-thumb {
+      width: 62px;
+      height: 62px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #e8eff8;
+    }
+
+    .cart-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      padding: 6px;
+      background: #ffffff;
+    }
+
+    .cart-name { font-weight: 700; margin-bottom: 4px; }
+    .cart-meta { color: var(--muted); font-size: 13px; }
+
+    .qty-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .summary {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .summary-row.total {
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .delivery-card {
+      display: grid;
+      gap: 14px;
+    }
+
+    .delivery-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 16px;
+    }
+
+    .map {
+      width: 100%;
+      height: 430px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #dce8f6;
+    }
+
+    .delivery-note {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .address {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(217,72,119,0.06);
+      border: 1px dashed rgba(217,72,119,0.28);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .area-list {
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .area-pill-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .area-pill {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(217,72,119,0.08);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .checkout-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(11,20,37,0.5);
+      backdrop-filter: blur(10px);
+      z-index: 50;
+    }
+
+    .checkout-modal.open { display: flex; }
+
+    .checkout-card {
+      width: min(780px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      background: rgba(255,255,255,0.98);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 70px rgba(18, 37, 71, 0.18);
+      padding: 24px;
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .full { grid-column: 1 / -1; }
+
+    .success-box {
+      margin-top: 14px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(47,158,68,0.12);
+      border: 1px solid rgba(47,158,68,0.24);
+      color: #1d6f31;
+      display: none;
+      line-height: 1.65;
+    }
+
+    .empty-state {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 16px;
+      text-align: center;
+      border: 1px dashed var(--border);
+      border-radius: 18px;
+      background: rgba(244,248,253,0.8);
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .contact-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+    }
+
+    .contact-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .contact-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    @media (max-width: 1160px) {
+      .hero, .layout, .delivery-grid, .checkout-grid { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .services, .contacts-grid, .stats { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 14px; }
+      .topbar { padding: 12px 14px; }
+      .hero-card, .panel, .checkout-card { padding: 18px; }
+      .search-row, .services, .contacts-grid, .stats { grid-template-columns: 1fr; }
+      .nav { display: none; }
+      .sidebar { top: auto; }
+      .product-image { height: 190px; }
+    }
+  </style>
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=359789d3-1235-43cb-86ee-5cae19528aa1&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge">КМВ</div>
+        <div>КМВ Маркет</div>
+      </div>
+      <nav class="nav">
+        <a href="#catalogSection">Каталог</a>
+        <a href="#deliverySection">Доставка</a>
+        <a href="#contactsSection">Контакты</a>
+      </nav>
+      <button class="button primary" style="width:auto;" onclick="document.getElementById('catalogSection').scrollIntoView({behavior:'smooth'})">Выбрать товары</button>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card hero-main">
+        <div class="hero-label">🚚 Доставка по Кавказским Минеральным Водам</div>
+        <h1 class="title">Онлайн-сервис доставки по всему КМВ и выдачей в удобной точке</h1>
+        <p class="subtitle">
+          КМВ Маркет — это готовый сайт межгородской доставки товаров по Пятигорску, Ессентукам, Кисловодску, Железноводску, Минеральным Водам и ближайшим населенным пунктам. Выберите товары, укажите точку получения на карте и оформите заказ за пару минут.
+        </p>
+        <div class="hero-actions">
+          <button class="button secondary" style="width:auto; background: rgba(217,72,119,0.18); color:white; border-color: rgba(240,101,149,0.28);" onclick="document.getElementById('deliverySection').scrollIntoView({behavior:'smooth'})">Выбрать точку на карте</button>
+          <button class="button" style="width:auto; background: white; color: var(--accent); border-color: transparent; box-shadow: 0 10px 24px rgba(217,72,119,0.18);" onclick="document.getElementById('contactsSection').scrollIntoView({behavior:'smooth'})">Связаться с нами</button>
+        </div>
+      </div>
+
+      <div class="hero-card stats">
+        <div class="stat">
+          <div class="value">6+</div>
+          <div class="label">основных городов КМВ в зоне быстрой доставки</div>
+        </div>
+        <div class="stat">
+          <div class="value">от 1 дня</div>
+          <div class="label">средний срок получения заказа по региону</div>
+        </div>
+        <div class="stat">
+          <div class="value">18</div>
+          <div class="label">товаров в каталоге</div>
+        </div>
+        <div class="stat">
+          <div class="value">24/7</div>
+          <div class="label">прием заявок на сайте без звонков</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel benefits-section" style="margin-bottom:24px;">
+      <div class="section-header">
+        <h2 class="muted">Почему выбирают КМВ Маркет?</h2>
+        <div class="muted">Локальный сервис с фокусом на регион</div>
+      </div>
+      <div class="services">
+        <div class="service-card">
+          <strong style="color: var(--accent);">Быстрая доставка по КМВ</strong>
+          <p>Сервис ориентирован на оперативную доставку заказов клиентам по всему КМВ.</p>
+        </div>
+        <div class="service-card">
+          <strong style="color: var(--accent);">Быстрый выбор точки доставки</strong>
+          <p>Клиент сам выбирает удобную точку доставки без лишних звонков или переписок.</p>
+        </div>
+        <div class="service-card">
+          <strong style="color: var(--accent);">Приятный дизайн</strong>
+          <p>Каталог, корзина, данные получателя и подтверждение заказа собраны в одном аккуратном интерфейсе.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <main class="catalog-wrap">
+        <section id="catalogSection" class="panel">
+          <div class="section-header">
+            <h2 class="section-title">Каталог товаров</h2>
+            <div class="muted">Подборка товаров для дома, дороги и повседневной жизни</div>
+          </div>
+          <div class="search-row">
+            <input id="searchInput" class="input" placeholder="Поиск по названию, описанию или категории" />
+            <select id="categoryFilter" class="select">
+              <option value="all">Все категории</option>
+              <option value="Электроника">Электроника</option>
+              <option value="Дом">Для дома</option>
+              <option value="Одежда">Одежда</option>
+              <option value="Спорт">Спорт</option>
+              <option value="Путешествия">Путешествия</option>
+            </select>
+          </div>
+        </section>
+
+        <section id="catalog" class="catalog"></section>
+
+        <section id="deliverySection" class="panel delivery-card">
+          <div class="section-header">
+            <h2 class="section-title">Выбор точки доставки</h2>
+            <div class="muted">Стартовая область карты — Пятигорск</div>
+          </div>
+          <p class="delivery-note">
+            Нажмите на карту, чтобы выбрать точку получения. Основная зона обслуживания — Пятигорск и города Кавминвод: Ессентуки, Кисловодск, Железноводск, Минеральные Воды, Лермонтов и близлежащие населенные пункты.
+          </p>
+
+          <div class="delivery-grid">
+            <div>
+              <div id="map" class="map"></div>
+            </div>
+            <div class="area-list">
+              <strong style="font-size:18px; color: var(--accent);">Города основной доставки</strong>
+              <div class="area-pill-wrap">
+                <div class="area-pill">Пятигорск</div>
+                <div class="area-pill">Ессентуки</div>
+                <div class="area-pill">Кисловодск</div>
+                <div class="area-pill">Железноводск</div>
+                <div class="area-pill">Минеральные Воды</div>
+                <div class="area-pill">Лермонтов</div>
+              </div>
+              <div id="selectedAddress" class="address">Пункт выдачи по умолчанию: Пятигорск. Вы можете выбрать любую точку на карте.</div>
+              <div style="display:grid; gap:10px;">
+                <button id="centerPyatigorskBtn" class="button secondary">Показать Пятигорск</button>
+                <button id="centerKislovodskBtn" class="button secondary">Показать Кисловодск</button>
+                <button id="centerEssenBtn" class="button secondary">Показать Ессентуки</button>
+                <button id="clearPointBtn" class="button ghost">Сбросить точку</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contactsSection" class="panel">
+          <div class="section-header">
+            <h2 class="section-title">Контакты</h2>
+            <div class="muted"></div>
+          </div>
+          <div class="contacts-grid">
+            <div class="contact-card">
+              <strong style="color: var(--accent);">Телефон</strong>
+              <p>+7 (912) 852-46-34 <br>Ежедневно с 9:00 до 20:00</p>
+            </div>
+            <div class="contact-card">
+              <strong style="color: var(--accent);">Пункт обработки заказов</strong>
+              <p>Пятигорск, улица Мира, 184<br>Основной хаб по КМВ</p>
+            </div>
+            <div class="contact-card">
+              <strong style="color: var(--accent);">Email</strong>
+              <p>info@kmvmarket.ru<br>support@kmvmarket.ru</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="sidebar">
+        <section class="panel">
+          <div class="section-header">
+            <h2 class="section-title">Корзина</h2>
+            <div id="cartCounter" class="muted">0 товаров</div>
+          </div>
+          <div id="cartItems" class="cart-items"></div>
+          <div class="summary">
+            <div class="summary-row"><span>Товары</span><span id="itemsPrice">0 ₽</span></div>
+            <div class="summary-row"><span>Доставка по КМВ</span><span id="shippingPrice">0 ₽</span></div>
+            <div class="summary-row total"><span>Итого</span><span id="totalPrice" style="color: var(--accent);">0 ₽</span></div>
+          </div>
+          <div style="display:grid; gap:10px; margin-top:18px;">
+            <button id="openCheckoutBtn" class="button primary">Оформить заказ</button>
+            <button id="clearCartBtn" class="button danger">Очистить корзину</button>
+          </div>
+          <div class="footer-note">
+            Заказ считается завершенным только после нажатия кнопки подтверждения в форме оформления.
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-header">
+            <h2 class="section-title">Мои заказы</h2>
+            <div class="muted">История заказов</div>
+          </div>
+          <div id="ordersList" class="cart-items"></div>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <div id="checkoutModal" class="checkout-modal">
+    <div class="checkout-card">
+      <div class="section-header">
+        <h2 class="section-title">Оформление заказа</h2>
+        <button id="closeCheckoutBtn" class="button ghost" style="width:auto;">Закрыть</button>
+      </div>
+
+      <div class="checkout-grid">
+        <input id="customerName" class="input" placeholder="Ваше имя" />
+        <input id="customerPhone" class="input" placeholder="Телефон" />
+        <div id="customerRecipientCity" class="input" style="display:flex; align-items:center; min-height:50px; background: rgba(47,158,68,0.06); border: 1px solid rgba(47,158,68,0.18); font-weight:700;">Пятигорск</div>
+        <textarea id="customerComment" class="input full" rows="4" placeholder="Комментарий к заказу"></textarea>
+      </div>
+
+      <div class="panel" style="margin-top:16px; padding:16px; background: rgba(244,248,253,0.8);">
+        <div class="section-header" style="margin-bottom:12px;">
+          <h3 class="section-title" style="font-size:19px;">Сводка заказа</h3>
+          <div id="checkoutItemsCount" class="muted">0 позиций</div>
+        </div>
+        <div id="checkoutSummary"></div>
+      </div>
+
+      <div class="success-box" id="successBox"></div>
+
+      <div style="display:flex; gap:12px; margin-top:18px; flex-wrap:wrap;">
+        <button id="confirmOrderBtn" class="button success">Подтвердить оформление</button>
+        <button id="cancelOrderBtn" class="button secondary">Отмена</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      {
+        id: 1,
+        title: 'Беспроводные наушники AeroBeat',
+        category: 'Электроника',
+        description: 'Шумоподавление, мягкие амбушюры и быстрая зарядка для поездок между городами.<br>Доставка из города Пятигорск.',
+        price: 6990,
+        label: 'Хит продаж',
+        image: 'https://micro-line.ru/images/detailed/7505/qlsvc4nmlgaw0jhvkt02jwpzojgbi3lc.jpg'
+      },
+      {
+        id: 2,
+        title: 'Термокружка RoadHeat 500',
+        category: 'Путешествия',
+        description: 'Держит температуру до 8 часов. Удобна в дороге и в автобусных и железнодорожных поездках.<br>Доставка из города Ессентуки.',
+        price: 1690,
+        label: 'В дорогу',
+        image: 'https://novex-images.storage.yandexcloud.net/uploads/products/156355/c9ec78054584677d67935ece1f9a9345.jpg'
+      },
+      {
+        id: 3,
+        title: 'Плед CloudSoft',
+        category: 'Дом',
+        description: 'Мягкий плед для дома или дачи, компактно складывается и занимает минимум места.<br>Доставка из города Кисловодск.',
+        price: 2490,
+        label: 'Уют',
+        image: 'https://hoff.ru/upload/iblock/a5c/rih8r5ek5njgptzph4klykkcz5bjn35b.jpg'
+      },
+      {
+        id: 4,
+        title: 'Городской рюкзак MovePack',
+        category: 'Путешествия',
+        description: 'Водоотталкивающий материал, отделение под ноутбук и усиленная спинка.<br>Доставка из города Железноводск.',
+        price: 4590,
+        label: 'Новая коллекция',
+        image: 'https://avatars.mds.yandex.net/get-mpic/4547325/2a00000191a45b9cf1eb109176b9cd45596f/orig'
+      },
+      {
+        id: 5,
+        title: 'Умная лампа LumiBox',
+        category: 'Дом',
+        description: 'Тёплый и холодный свет, управление яркостью и современный минималистичный дизайн.<br>Доставка из города Минеральные Воды.',
+        price: 2190,
+        label: 'Умный дом',
+        image: 'https://catalog-cdn.detmir.st/media/MHbPcKHkhIR27ZNPE2dMfgv9BJmc4I4DPW8AlpAlFhM=.jpeg'
+      },
+      {
+        id: 6,
+        title: 'Футболка MetroLine',
+        category: 'Одежда',
+        description: 'Базовая футболка из хлопка с плотной тканью и удобной посадкой.<br>Доставка из города Лермонтов.',
+        price: 1290,
+        label: 'Новая коллекция',
+        image: 'https://zakrepi.ru/images/uploaded/catalog-gallery/futbolka-kulirka-oranzhevaya/23-03-10-11-15-1_large.jpg'
+      },
+      {
+        id: 7,
+        title: 'Фитнес-браслет PulseOne',
+        category: 'Спорт',
+        description: 'Отслеживание шагов, пульса, сна и активности. Подходит для тренировок и прогулок.<br>Доставка из города Пятигорск.',
+        price: 3890,
+        label: 'Спорт',
+        image: 'https://avatars.mds.yandex.net/i?id=e0d33b15ed773610270c21567fa61ed7_l-9391207-images-thumbs&n=13'
+      },
+      {
+        id: 8,
+        title: 'Портативная колонка WaveMini',
+        category: 'Электроника',
+        description: 'Компактная колонка с насыщенным звуком и защитой от брызг.<br>Доставка из города Ессентуки.',
+        price: 3290,
+        label: 'Музыка',
+        image: 'https://avatars.mds.yandex.net/i?id=bd5f84c7f25b24822503c27635c02e64_l-5288148-images-thumbs&n=13'
+      },
+      {
+        id: 9,
+        title: 'Кроссовки TrailRun',
+        category: 'Спорт',
+        description: 'Лёгкая подошва, амортизация и удобная форма для активного отдыха.<br>Доставка из города Кисловодск.',
+        price: 5790,
+        label: 'Комфорт',
+        image: 'https://ae04.alicdn.com/kf/S6ecb0068538741f4a6153a09d86a22a5P.jpg'
+      },
+      {
+        id: 10,
+        title: 'Кроссовки CityFlex',
+        category: 'Спорт',
+        description: 'Универсальные кроссовки для города, прогулок и повседневной носки.<br>Доставка из города Железноводск.',
+        price: 5290,
+        label: 'Город',
+        image: 'https://avatars.mds.yandex.net/i?id=b50f43a85ebbce6a89b7c5cca2ff164d_l-12413751-images-thumbs&n=13'
+      },
+      {
+        id: 11,
+        title: 'Кроссовки RunPeak',
+        category: 'Спорт',
+        description: 'Модель с мягкой амортизацией и сетчатым верхом для активных маршрутов.<br>Доставка из города Минеральные Воды.',
+        price: 6190,
+        label: 'Бег',
+        image: 'https://ae04.alicdn.com/kf/HTB1jHKbiuGSBuNjSspbq6AiipXa9.jpg_640x640.jpg'
+      },
+      {
+        id: 12,
+        title: 'Наушники SoundFlow Pro',
+        category: 'Электроника',
+        description: 'Полноразмерные наушники с глубоким басом и длительным временем работы.<br>Доставка из города Лермонтов.',
+        price: 8490,
+        label: 'Премиум',
+        image: 'https://lite-mobile.ru/image/cache/catalog/import_files/5e/5e4fe3f4eb5411e995b500155d74491e_337ed955006b11ea947e00155d74491e.-1200x1200.jpg'
+      },
+      {
+        id: 13,
+        title: 'Наушники CityPods Lite',
+        category: 'Электроника',
+        description: 'Компактные беспроводные наушники для звонков, музыки и поездок по городу.<br>Доставка из города Пятигорск.',
+        price: 3990,
+        label: 'Лёгкие',
+        image: 'https://img.05.ru/resize/cN6XWB5iEYsTjvhX01xQJQlkWAWnxqZwtydeeUX4vQQ/rs:fit:1000:1000:0:0/q:80/bG9jYWw6Ly8vdXBsb2FkL2libG9jay8wMDAwMDIyMDE4OC8yLmpwZw'
+      },
+      {
+        id: 14,
+        title: 'Рюкзак TravelBox 24',
+        category: 'Путешествия',
+        description: 'Вместительный рюкзак для коротких поездок с внешними карманами и жёсткой спинкой.<br>Доставка из города Ессентуки.',
+        price: 4990,
+        label: 'Для поездок',
+        image: 'https://img-edg.joomcdn.net/f096dbf846c6df1565d91a63407374e9d71999b4_original.jpeg'
+      },
+      {
+        id: 15,
+        title: 'Рюкзак UrbanCarry',
+        category: 'Путешествия',
+        description: 'Минималистичный городской рюкзак под ноутбук и личные вещи.<br>Доставка из города Кисловодск.',
+        price: 4390,
+        label: 'Городской',
+        image: 'https://img-edg.joomcdn.net/0b9cf26573e15afd8627a1ccce71639723fed912_original.jpeg'
+      },
+      {
+        id: 16,
+        title: 'Худи North Breeze',
+        category: 'Одежда',
+        description: 'Мягкое худи свободного кроя для прохладной погоды и повседневного стиля.<br>Доставка из города Железноводск.',
+        price: 2890,
+        label: 'Комфорт',
+        image: 'https://img.joomcdn.net/d60be64b44cfb441b23a8937f2008d93c5c1193f_original.jpeg'
+      },
+      {
+        id: 17,
+        title: 'Настольная лампа SoftLight',
+        category: 'Дом',
+        description: 'Компактная лампа для рабочего стола с мягким светом и поворотным корпусом.<br>Доставка из города Минеральные Воды.',
+        price: 2590,
+        label: 'Для дома',
+        image: 'https://img.lu.ru/add_photo/big/m/a/y/maytoni_z010tl-l8b3k_2.jpg'
+      },
+      {
+        id: 18,
+        title: 'Дорожная сумка RouteBag',
+        category: 'Путешествия',
+        description: 'Удобная сумка для межгородских поездок с отдельным отсеком для обуви.<br>Доставка из города Лермонтов.',
+        price: 3690,
+        label: 'Практично',
+        image: 'https://main-cdn.sbermegamarket.ru/big1/hlr-system/-2/39/97/53/28/42/7/600001485080b0.jpeg'
+      }
+    ];
+
+    const KMV_CITIES = {
+      pyatigorsk: { center: [44.0486, 43.0594], zoom: 12, label: 'Пятигорск' },
+      kislovodsk: { center: [43.9052, 42.7168], zoom: 12, label: 'Кисловодск' },
+      essentuki: { center: [44.0444, 42.8606], zoom: 12, label: 'Ессентуки' }
+    };
+
+    const catalog = document.getElementById('catalog');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartCounterEl = document.getElementById('cartCounter');
+    const itemsPriceEl = document.getElementById('itemsPrice');
+    const shippingPriceEl = document.getElementById('shippingPrice');
+    const totalPriceEl = document.getElementById('totalPrice');
+    const clearCartBtn = document.getElementById('clearCartBtn');
+    const openCheckoutBtn = document.getElementById('openCheckoutBtn');
+    const checkoutModal = document.getElementById('checkoutModal');
+    const closeCheckoutBtn = document.getElementById('closeCheckoutBtn');
+    const cancelOrderBtn = document.getElementById('cancelOrderBtn');
+    const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+    const checkoutSummary = document.getElementById('checkoutSummary');
+    const checkoutItemsCount = document.getElementById('checkoutItemsCount');
+    const successBox = document.getElementById('successBox');
+    const selectedAddressEl = document.getElementById('selectedAddress');
+
+    const customerName = document.getElementById('customerName');
+    const customerPhone = document.getElementById('customerPhone');
+    const customerRecipientCity = document.getElementById('customerRecipientCity');
+    const customerComment = document.getElementById('customerComment');
+
+    let cart = [];
+    let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    let selectedPoint = KMV_CITIES.pyatigorsk.center;
+    let selectedAddressText = 'Пятигорск';
+    let myMap = null;
+    let pickupPlacemark = null;
+
+    function formatPrice(value) {
+      return new Intl.NumberFormat('ru-RU').format(value) + ' ₽';
+    }
+
+    function getShippingCost(subtotal) {
+      if (subtotal === 0) return 0;
+      return 0;
+    }
+
+    function getFilteredProducts() {
+      const query = searchInput.value.trim().toLowerCase();
+      const category = categoryFilter.value;
+
+      return products.filter(product => {
+        const matchesQuery = `${product.title} ${product.description} ${product.category}`.toLowerCase().includes(query);
+        const matchesCategory = category === 'all' || product.category === category;
+        return matchesQuery && matchesCategory;
+      });
+    }
+
+    function renderCatalog() {
+      const filtered = getFilteredProducts();
+
+      if (!filtered.length) {
+        catalog.innerHTML = '<div class="panel empty-state">По вашему запросу товары не найдены. Попробуйте изменить фильтры.</div>';
+        return;
+      }
+
+      catalog.innerHTML = filtered.map(product => {
+        const [descriptionText, deliveryText = ''] = product.description.split('<br>');
+
+        return `
+        <article class="product">
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.title}" loading="lazy" onerror="this.onerror=null;this.src=window.fallbackProductImage;">
+            <div class="badge">${product.label}</div>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">${product.title}</h3>
+            <p class="product-desc">${descriptionText}</p>
+            <div class="product-meta">
+              <div class="price-row">
+                <div>
+                  <div class="muted" style="font-size:12px; margin-bottom:4px;">${product.category}</div>
+                  <div class="price">${formatPrice(product.price)}</div>
+                  ${deliveryText ? `<div class="delivery-from">${deliveryText}</div>` : '<div class="delivery-from"></div>'}
+                </div>
+                <button class="button primary" onclick="addToCart(${product.id})" style="width:auto;">В корзину</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `}).join('');
+    }
+
+    function addToCart(productId) {
+      const existing = cart.find(item => item.id === productId);
+      if (existing) existing.quantity += 1;
+      else {
+        const product = products.find(p => p.id === productId);
+        cart.push({ ...product, quantity: 1 });
+      }
+      renderCart();
+    }
+
+    function changeQuantity(productId, delta) {
+      const item = cart.find(p => p.id === productId);
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity <= 0) cart = cart.filter(p => p.id !== productId);
+      renderCart();
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      renderCart();
+    }
+
+    function clearCart() {
+      cart = [];
+      renderCart();
+    }
+
+    function renderCart() {
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const shipping = getShippingCost(subtotal);
+      const total = subtotal + shipping;
+
+      cartCounterEl.textContent = `${totalItems} ${declension(totalItems, ['товар', 'товара', 'товаров'])}`;
+      itemsPriceEl.textContent = formatPrice(subtotal);
+      shippingPriceEl.textContent = formatPrice(shipping);
+      totalPriceEl.textContent = formatPrice(total);
+
+      if (!cart.length) {
+        cartItemsEl.innerHTML = '<div class="empty-state">Корзина пока пуста. Добавьте товары из каталога.</div>';
+      } else {
+        cartItemsEl.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <div class="cart-thumb"><img src="${item.image}" alt="${item.title}" onerror="this.onerror=null;this.src=window.fallbackProductImage;"></div>
+            <div>
+              <div class="cart-name">${item.title}</div>
+              <div class="cart-meta">${formatPrice(item.price)} за штуку</div>
+              <div class="qty-box">
+                <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">−</button>
+                <strong>${item.quantity}</strong>
+                <button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+              </div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-weight:800; margin-bottom:8px;">${formatPrice(item.price * item.quantity)}</div>
+              <button class="button ghost" style="width:auto; padding:8px 10px;" onclick="removeFromCart(${item.id})">Удалить</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      renderCheckoutSummary();
+    }
+
+    function declension(number, forms) {
+      const n = Math.abs(number) % 100;
+      const n1 = n % 10;
+      if (n > 10 && n < 20) return forms[2];
+      if (n1 > 1 && n1 < 5) return forms[1];
+      if (n1 === 1) return forms[0];
+      return forms[2];
+    }
+
+    function renderOrders() {
+      const container = document.getElementById('ordersList');
+
+      if (!orders.length) {
+        container.innerHTML = '<div class="empty-state">Пока нет заказов</div>';
+        return;
+      }
+
+      container.innerHTML = orders.map(order => `
+        <div class="cart-item" style="grid-template-columns: 1fr; align-items: flex-start;">
+          <div style="width:100%;">
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:flex-start; margin-bottom:6px;">
+              <strong>Заказ ${order.id}</strong>
+              <span class="cart-meta">${order.date}</span>
+            </div>
+            <div class="cart-meta">Получатель: ${order.name}</div>
+            <div class="cart-meta" style="margin-top:4px;">Адрес: ${order.address}</div>
+            <div style="margin:8px 0; font-size:13px; line-height:1.5; color: var(--text);">
+              ${order.items.map(item => `${item.title} × ${item.quantity}`).join('<br>')}
+            </div>
+            <strong style="color: var(--accent);">${formatPrice(order.total)}</strong>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderCheckoutSummary() {
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const shipping = getShippingCost(subtotal);
+      const total = subtotal + shipping;
+      const itemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+      checkoutItemsCount.textContent = `${itemsCount} ${declension(itemsCount, ['позиция', 'позиции', 'позиций'])}`;
+
+      if (!cart.length) {
+        checkoutSummary.innerHTML = '<div class="empty-state">Сейчас нечего оформлять — корзина пуста.</div>';
+        return;
+      }
+
+      checkoutSummary.innerHTML = `
+        <div style="display:grid; gap:10px;">
+          ${cart.map(item => `
+            <div class="summary-row" style="padding:10px 0; border-bottom:1px solid rgba(21,38,73,0.08);">
+              <span>${item.title} × ${item.quantity}</span>
+              <strong>${formatPrice(item.price * item.quantity)}</strong>
+            </div>
+          `).join('')}
+          <div class="summary-row"><span>Точка получения</span><span style="max-width:60%; text-align:right;">${selectedAddressText || 'Не выбрана'}</span></div>
+          <div class="summary-row"><span>Товары</span><strong>${formatPrice(subtotal)}</strong></div>
+          <div class="summary-row"><span>Доставка</span><strong>${formatPrice(shipping)}</strong></div>
+          <div class="summary-row total"><span>К оплате</span><span style="color: var(--accent);">${formatPrice(total)}</span></div>
+        </div>
+      `;
+    }
+
+    function openCheckout() {
+      successBox.style.display = 'none';
+      successBox.textContent = '';
+      renderCheckoutSummary();
+      checkoutModal.classList.add('open');
+    }
+
+    function closeCheckout() {
+      checkoutModal.classList.remove('open');
+    }
+
+    function escapeHtml(value) {
+      return value
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function confirmOrder() {
+      if (!cart.length) {
+        alert('Корзина пуста. Добавьте хотя бы один товар.');
+        return;
+      }
+      if (!selectedPoint) {
+        alert('Выберите точку доставки на карте.');
+        return;
+      }
+      if (!customerName.value.trim() || !customerPhone.value.trim() || !customerRecipientCity.textContent.trim()) {
+        alert('Заполните имя, телефон и выберите точку получения на карте.');
+        return;
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const total = subtotal + getShippingCost(subtotal);
+      const orderNumber = 'KMV-' + Math.floor(100000 + Math.random() * 900000);
+
+      const newOrder = {
+        id: orderNumber,
+        name: customerName.value.trim(),
+        address: selectedAddressText,
+        items: cart.map(item => ({
+          title: item.title,
+          quantity: item.quantity,
+          price: item.price
+        })),
+        total: total,
+        date: new Date().toLocaleString('ru-RU')
+      };
+
+      orders.unshift(newOrder);
+      localStorage.setItem('orders', JSON.stringify(orders));
+      renderOrders();
+
+      successBox.style.display = 'block';
+      successBox.innerHTML = `
+        Заказ <strong>${orderNumber}</strong> успешно оформлен.<br>
+        Клиент: <strong>${escapeHtml(customerName.value.trim())}</strong><br>
+        Телефон: <strong>${escapeHtml(customerPhone.value.trim())}</strong><br>
+        Точка получения: <strong>${escapeHtml(customerRecipientCity.textContent.trim())}</strong><br>
+        Пункт выдачи: <strong>${escapeHtml(selectedAddressText)}</strong><br>
+        Итоговая сумма: <strong>${formatPrice(total)}</strong>
+      `;
+
+      clearCart();
+      customerName.value = '';
+      customerPhone.value = '';
+      customerRecipientCity.textContent = selectedAddressText;
+      customerComment.value = '';
+    }
+
+    function formatGeocodeAddress(firstGeoObject) {
+      if (!firstGeoObject) return '';
+
+      const meta = firstGeoObject.properties.get('metaDataProperty.GeocoderMetaData');
+      const addressDetails = meta && meta.Address && meta.Address.Components ? meta.Address.Components : [];
+
+      const findComponent = (kind) => {
+        const found = addressDetails.find(item => item.kind === kind);
+        return found ? found.name : '';
+      };
+
+      const locality = findComponent('locality') || findComponent('province') || findComponent('area');
+      const street = findComponent('street');
+      const house = findComponent('house');
+
+      const shortAddress = [locality, street, house].filter(Boolean).join(', ');
+      if (shortAddress) return shortAddress;
+
+      const thoroughfare = typeof firstGeoObject.getThoroughfare === 'function' ? firstGeoObject.getThoroughfare() : '';
+      const premise = typeof firstGeoObject.getPremiseNumber === 'function' ? firstGeoObject.getPremiseNumber() : '';
+      const fallback = [locality, thoroughfare, premise].filter(Boolean).join(', ');
+      if (fallback) return fallback;
+
+      return firstGeoObject.getAddressLine ? firstGeoObject.getAddressLine() : '';
+    }
+
+    function initMap() {
+      if (typeof ymaps === 'undefined') {
+        selectedAddressEl.innerHTML = 'Яндекс Карты не загрузились. Проверьте API-ключ в коде: <strong>YOUR_YANDEX_MAPS_API_KEY</strong>.';
+        return;
+      }
+
+      ymaps.ready(() => {
+        myMap = new ymaps.Map('map', {
+          center: KMV_CITIES.pyatigorsk.center,
+          zoom: KMV_CITIES.pyatigorsk.zoom,
+          controls: ['zoomControl', 'fullscreenControl', 'geolocationControl']
+        });
+
+        setPickupPoint(KMV_CITIES.pyatigorsk.center, true);
+
+        myMap.events.add('click', function (e) {
+          const coords = e.get('coords');
+          setPickupPoint(coords, false);
+        });
+      });
+    }
+
+    function setPickupPoint(coords, isDefault = false) {
+      selectedPoint = coords;
+
+      if (!pickupPlacemark) {
+        pickupPlacemark = new ymaps.Placemark(coords, {
+          balloonContent: 'Выбранный пункт выдачи'
+        }, {
+          preset: 'islands#blueShoppingIcon'
+        });
+        myMap.geoObjects.add(pickupPlacemark);
+      } else {
+        pickupPlacemark.geometry.setCoordinates(coords);
+      }
+
+      if (!isDefault) {
+        myMap.panTo(coords, { flying: true, duration: 300 });
+      }
+
+      selectedAddressEl.textContent = 'Определяем адрес выбранной точки...';
+      renderCheckoutSummary();
+
+      ymaps.geocode(coords).then(function (res) {
+        const firstGeoObject = res.geoObjects.get(0);
+        const humanAddress = formatGeocodeAddress(firstGeoObject);
+
+        if (humanAddress) {
+          selectedAddressText = humanAddress;
+        } else if (isDefault) {
+          selectedAddressText = 'Пятигорск';
+        } else {
+          selectedAddressText = 'Точка в пределах выбранной области';
+        }
+
+        selectedAddressEl.textContent = 'Выбранный пункт выдачи: ' + selectedAddressText;
+        customerRecipientCity.textContent = selectedAddressText;
+        pickupPlacemark.properties.set('balloonContent', selectedAddressText);
+        renderCheckoutSummary();
+      }).catch(function () {
+        selectedAddressText = isDefault ? 'Пятигорск' : 'Точка в пределах выбранной области';
+        selectedAddressEl.textContent = 'Выбранный пункт выдачи: ' + selectedAddressText;
+        customerRecipientCity.textContent = selectedAddressText;
+        renderCheckoutSummary();
+      });
+    }
+
+    function clearPickupPoint() {
+      if (myMap) {
+        myMap.setCenter(KMV_CITIES.pyatigorsk.center, KMV_CITIES.pyatigorsk.zoom, { duration: 300 });
+        setPickupPoint(KMV_CITIES.pyatigorsk.center, true);
+      } else {
+        selectedPoint = KMV_CITIES.pyatigorsk.center;
+        selectedAddressText = 'Пятигорск';
+        selectedAddressEl.textContent = 'Пункт выдачи по умолчанию: Пятигорск. Вы можете выбрать любую точку на карте.';
+        customerRecipientCity.textContent = 'Пятигорск';
+      }
+    }
+
+    function moveToCity(cityKey) {
+      const city = KMV_CITIES[cityKey];
+      if (!city || !myMap) return;
+      myMap.setCenter(city.center, city.zoom, { duration: 300 });
+      setPickupPoint(city.center, false);
+    }
+
+    searchInput.addEventListener('input', renderCatalog);
+    categoryFilter.addEventListener('change', renderCatalog);
+    clearCartBtn.addEventListener('click', clearCart);
+    openCheckoutBtn.addEventListener('click', openCheckout);
+    closeCheckoutBtn.addEventListener('click', closeCheckout);
+    cancelOrderBtn.addEventListener('click', closeCheckout);
+    confirmOrderBtn.addEventListener('click', confirmOrder);
+    document.getElementById('clearPointBtn').addEventListener('click', clearPickupPoint);
+    document.getElementById('centerPyatigorskBtn').addEventListener('click', () => moveToCity('pyatigorsk'));
+    document.getElementById('centerKislovodskBtn').addEventListener('click', () => moveToCity('kislovodsk'));
+    document.getElementById('centerEssenBtn').addEventListener('click', () => moveToCity('essentuki'));
+
+    checkoutModal.addEventListener('click', (e) => {
+      if (e.target === checkoutModal) closeCheckout();
+    });
+
+    window.fallbackProductImage = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+        <rect width="600" height="600" fill="#f3f4f6"/>
+        <rect x="110" y="120" width="380" height="300" rx="26" fill="#d1d5db"/>
+        <circle cx="210" cy="220" r="36" fill="#9ca3af"/>
+        <path d="M140 360l90-90 70 65 85-95 75 120H140z" fill="#6b7280"/>
+        <text x="300" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" fill="#374151">Изображение товара</text>
+      </svg>
+    `);
+
+    customerRecipientCity.value = selectedAddressText;
+    renderCatalog();
+    renderCart();
+    renderCheckoutSummary();
+    renderOrders();
+    initMap();
+
+    window.addToCart = addToCart;
+    window.changeQuantity = changeQuantity;
+    window.removeFromCart = removeFromCart;
+  </script>
+</body>
+</html>
